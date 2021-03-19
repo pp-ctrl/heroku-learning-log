@@ -40,7 +40,10 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "hello",
-    "learning_logs"
+    "learning_logs",
+    "bootstrap3",
+    "users",
+
 ]
 
 MIDDLEWARE = [
@@ -118,3 +121,36 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = "/static/"
 
 django_heroku.settings(locals())
+
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.1/howto/static-files/
+
+STATIC_URL = '/static/'
+
+#my added setting
+LOGIN_URL = '/login/'
+# LOGIN_URL = '/users/login/'
+
+BOOTSTRAP3 = {
+    'include_jquery':True
+}
+
+# Heroku setting
+cwd = os.getcwd()
+if cwd == '/app' or cwd[:4] == '/tmp':
+    import dj_database_url
+    DATABASES = {
+        'default': dj_database_url.config(default='postgres://localhost')
+    }
+    # as request.is_secure() accept X-Forwarded-Proto header
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO','https')
+    # support all the headers of machines
+    ALLOWED_HOSTS = ['*']
+    # STATIC ASSET CONFIG
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    STATIC_ROOT = 'staticfiles'
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR,'static')
+    )

@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path, include, re_path
 
 from django.contrib import admin
 
@@ -15,7 +15,9 @@ import hello.views
 # Learn more here: https://docs.djangoproject.com/en/2.1/topics/http/urls/
 
 urlpatterns = [
-    path("", hello.views.index, name="index"),
-    path("db/", hello.views.db, name="db"),
+    # path("", hello.views.index, name="index"),
+    # path("db/", hello.views.db, name="db"),
     path("admin/", admin.site.urls),
+    re_path('', include(('learning_logs.urls', 'learning_logs'), namespace='learning_logs')),
+    re_path('', include(('users.urls', 'users'), namespace='users')),
 ]

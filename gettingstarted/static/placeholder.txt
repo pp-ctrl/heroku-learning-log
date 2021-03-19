@@ -1,0 +1,1 @@
+collect static files and place them
